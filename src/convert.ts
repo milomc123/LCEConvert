@@ -1,5 +1,6 @@
 import { inflatePayload } from './inflate';
 import { guessSavegameWrapper } from './savegame';
+import { localizeSaveData } from './saveformat';
 import { StfsPackage } from './stfs';
 
 export async function convertStfsBinToSaveData(bin: Uint8Array): Promise<Uint8Array> {
@@ -11,5 +12,6 @@ export async function convertStfsBinToSaveData(bin: Uint8Array): Promise<Uint8Ar
 
   const wrap = guessSavegameWrapper(savegame);
   const comp = savegame.subarray(wrap.compOffset, wrap.compOffset + wrap.compLen);
-  return await inflatePayload(comp, wrap.expectedSize);
+  const inflated = await inflatePayload(comp, wrap.expectedSize);
+  return await localizeSaveData(inflated);
 }
