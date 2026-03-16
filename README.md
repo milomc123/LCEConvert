@@ -41,5 +41,4 @@ npm test
 ## Attribution / licensing
 
 - Vendored LZX decompressor code comes from **libmspack** (Stuart Caie) and is licensed under **LGPL-2.1**.
-	- See `THIRD_PARTY_NOTICES.md` for details and file list.
 	- See `LICENSES/LGPL-2.1.txt` for the license text.
