@@ -2,6 +2,10 @@
 
 This repo contains a minimal, framework-free **web** converter for Minecraft Xbox 360 STFS saves.
 
+Currently outputs a "saveData.ms" file for use with smartcmd/MinecraftConsoles.
+
+May add support for other platforms in the future.
+
 ## Run locally
 
 Install dependencies:
