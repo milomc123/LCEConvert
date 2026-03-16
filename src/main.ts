@@ -1,6 +1,5 @@
+import { convertStfsBinToSaveData } from './convert';
 import { StfsPackage } from './stfs';
-import { guessSavegameWrapper } from './savegame';
-import { inflatePayload } from './inflate';
 
 const fileEl = document.getElementById('file') as HTMLInputElement;
 const convertEl = document.getElementById('convert') as HTMLButtonElement;
@@ -40,17 +39,10 @@ convertEl.addEventListener('click', async () => {
     log(`Package name: ${pkg.meta.displayName}`);
 
     const savegame = pkg.extractFileByName('savegame.dat');
-    if (!savegame) {
-      throw new Error('savegame.dat not found inside STFS');
-    }
+    if (!savegame) throw new Error('savegame.dat not found inside STFS');
     log(`savegame.dat: ${savegame.length} bytes`);
 
-    const wrap = guessSavegameWrapper(savegame);
-    log(`Wrapper: ${wrap.kind}`);
-    log(`Expected inflated size: ${wrap.expectedSize}`);
-
-    const comp = savegame.subarray(wrap.compOffset, wrap.compOffset + wrap.compLen);
-    const inflated = await inflatePayload(comp, wrap.expectedSize);
+    const inflated = await convertStfsBinToSaveData(buf);
     log(`Inflated: ${inflated.length} bytes`);
 
     downloadBytes('saveData.ms', inflated);

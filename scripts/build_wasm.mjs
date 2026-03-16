@@ -22,6 +22,7 @@ const outDir = path.resolve(repoRoot, 'src', 'wasm');
 mkdirSync(outDir, { recursive: true });
 
 const emcc = process.env.EMCC || 'emcc';
+const environment = process.env.WASM_ENVIRONMENT || 'web';
 
 const mspackDir = path.resolve(repoRoot, 'vendor', 'mspack');
 const lzxdC = path.resolve(mspackDir, 'lzxd.c');
@@ -40,7 +41,7 @@ const args = [
   '-s',
   'EXPORT_ES6=1',
   '-s',
-  'ENVIRONMENT=web',
+  `ENVIRONMENT=${environment}`,
   '-s',
   'ALLOW_MEMORY_GROWTH=1',
   '-s',
